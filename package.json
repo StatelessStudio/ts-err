@@ -40,13 +40,13 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/StatelessStudio/typescript-template.git"
+		"url": "git+https://github.com/StatelessStudio/ts-err.git"
 	},
 	"author": "stateless-studio",
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/StatelessStudio/typescript-template/issues"
+		"url": "https://github.com/StatelessStudio/ts-err/issues"
 	},
-	"homepage": "https://github.com/StatelessStudio/typescript-template#readme",
+	"homepage": "https://github.com/StatelessStudio/ts-err#readme",
 	"keywords": []
 }
