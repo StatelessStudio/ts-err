@@ -1,66 +1,45 @@
-# typescript-template
+# ts-err
 
 ## Installation
 
-1. Fork this repo
-2. Replace "typescript-template" with the name of your app project-wide (**No Spaces or special characters except dash!**)
-3. `npm i`
-4. Update the documentation, changelog, etc
+`npm i ts-err`
 
-## Development
+## Basic Errors
 
-Run a dev test with `npm start`.
+ApplicationError(*message: string*, *context: any*, *previous: Error*)
 
-Here's a rundown of where to put your code, see each file for more information:
+```typescript
+import { ApplicationError } from 'ts-error';
 
-- **src/environment.ts**: Setup environment variables here
-- **src/index.ts**: You don't typically need to edit this file, it just initializes and starts your app.
-- **src/log.ts**: This is your project's log, import this file to use the log. You can also extend/replace the log.
-- **src/main.ts**: This is the main entrypoint for your application, after services have been registered.
-- **src/register.ts**: This file initializes services such as database, SMTP, etc. that are used across different entrypoints of your application.
+const a = 5;
 
-## Running Tests
+throw new ApplicationError('Something happened!', {
+	value: a
+});
+```
 
-To run unit tests, `npm run test`
+## Error chains
 
-## Scripts
+```typescript
+import { ApplicationError } from 'ts-error';
 
-You can write custom scripts in the `script/` directory. See `script/example.ts` as an example. You should also register your scripts in `package.json`:
-
-```json
-{
-	...
-	"scripts": {
-		...
-		"admin:example": "ts-node script/example"
-	}
+try {
+	throw new Error('Hello!');
+}
+catch(e) {
+	throw new ApplicationError('Greeting failed', null, e);
 }
 ```
 
-Run your script with `npm run admin:example`
+## Http Errors (with Axios)
 
-## Compiling
+HttpError(*message: string*, *error: any*)
 
-### Debug Builds
+```typescript
+import { default as axios } from 'axios';
+import { HttpError } from 'ts-err';
 
-To compile a debug build, run `npm run build:dev`. The build output will appear in the `./dist` folder.
-
-### Prod Builds
-
-To compile a production build, run `npm run build:prod`. The build output will appear in the `./dist` folder.
-
-### Clean Builds
-
-To generate a clean build (removes old artifacts and reruns pre&post process scripts), append `:clean` to a build script:
-- Debug: `npm run build:dev:clean`
-- Release: `npm run build:prod:clean`
-
-## More
-
-### Generating Docs
-
-`npm run doc` and browse docs/index.html!
-
-### Environment Variables
-
-See `src/environment.ts` to see how to use this project's environment variables. Configure an environment in `.env` or with `process.env` (https://nodejs.org/dist/latest-v16.x/docs/api/process.html#processenv).
+axios.get('https://google.com/teapot').catch(err => {
+	throw new HttpError('Could not fetch teapot', err);
+})
+```

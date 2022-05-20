@@ -1,8 +1,9 @@
 {
-	"name": "typescript-template",
+	"name": "ts-err",
 	"version": "1.0.0",
 	"ts-project-version": "2.1.0",
-	"description": "typescript-template",
+	"description": "TypeScript Exceptions",
+	"private": true,
 	"scripts": {
 		"start": "npm run dev",
 		"dev": "npm run lint && ts-node src/index.ts",
@@ -21,14 +22,7 @@
 		"lint:prod": "eslint . --ext .ts --fix --config=.eslintrc.prod.json",
 		"coverage": "nyc npm run coverage-test",
 		"coverage-test": "jasmine --config=jasmine.json",
-		"coveralls": "cat ./coverage/lcov.info | coveralls",
-		"admin:example": "ts-node script/example"
-	},
-	"dependencies": {
-		"ts-appconfig": "^1.2.0",
-		"ts-async-bootstrap": "^2.1.0",
-		"ts-error-handler": "^1.0.2",
-		"ts-tiny-log": "^1.0.2"
+		"coveralls": "cat ./coverage/lcov.info | coveralls"
 	},
 	"devDependencies": {
 		"@istanbuljs/nyc-config-typescript": "^1.0.2",
@@ -36,25 +30,26 @@
 		"@types/node": "^16.11.21",
 		"@typescript-eslint/eslint-plugin": "^5.10.0",
 		"@typescript-eslint/parser": "^5.10.0",
+		"axios": "^0.27.2",
 		"coveralls": "^3.1.1",
 		"eslint": "^8.7.0",
 		"jasmine": "^4.0.2",
 		"nodemon": "^2.0.15",
 		"nyc": "^15.1.0",
 		"ts-node": "^10.4.0",
+		"ts-packager": "^1.0.3",
 		"typedoc": "^0.22.11",
 		"typescript": "^4.5.4"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/StatelessStudio/typescript-template.git"
+		"url": "git+https://github.com/StatelessStudio/ts-err.git"
 	},
 	"author": "stateless-studio",
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/StatelessStudio/typescript-template/issues"
+		"url": "https://github.com/StatelessStudio/ts-err/issues"
 	},
-	"homepage": "https://github.com/StatelessStudio/typescript-template#readme",
-	"keywords": [
-	]
+	"homepage": "https://github.com/StatelessStudio/ts-err#readme",
+	"keywords": []
 }
