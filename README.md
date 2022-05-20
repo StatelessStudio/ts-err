@@ -1,47 +1,45 @@
 # ts-err
 
-## Running Tests
+## Installation
 
-To run unit tests, `npm run test`
+`npm i ts-err`
 
-## Scripts
+## Basic Errors
 
-You can write custom scripts in the `script/` directory. See `script/example.ts` as an example. You should also register your scripts in `package.json`:
+ApplicationError(*message: string*, *context: any*, *previous: Error*)
 
-```json
-{
-	...
-	"scripts": {
-		...
-		"admin:example": "ts-node script/example"
-	}
+```typescript
+import { ApplicationError } from 'ts-error';
+
+const a = 5;
+
+throw new ApplicationError('Something happened!', {
+	value: a
+});
+```
+
+## Error chains
+
+```typescript
+import { ApplicationError } from 'ts-error';
+
+try {
+	throw new Error('Hello!');
+}
+catch(e) {
+	throw new ApplicationError('Greeting failed', null, e);
 }
 ```
 
-Run your script with `npm run admin:example`
+## Http Errors (with Axios)
 
-## Compiling
+HttpError(*message: string*, *error: any*)
 
-### Debug Builds
+```typescript
+import { default as axios } from 'axios';
+import { HttpError } from 'ts-err';
 
-To compile a debug build, run `npm run build:dev`. The build output will appear in the `./dist` folder.
-
-### Prod Builds
-
-To compile a production build, run `npm run build:prod`. The build output will appear in the `./dist` folder.
-
-### Clean Builds
-
-To generate a clean build (removes old artifacts and reruns pre&post process scripts), append `:clean` to a build script:
-- Debug: `npm run build:dev:clean`
-- Release: `npm run build:prod:clean`
-
-## More
-
-### Generating Docs
-
-`npm run doc` and browse docs/index.html!
-
-### Environment Variables
-
-See `src/environment.ts` to see how to use this project's environment variables. Configure an environment in `.env` or with `process.env` (https://nodejs.org/dist/latest-v16.x/docs/api/process.html#processenv).
+axios.get('https://google.com/teapot').catch(err => {
+	throw new HttpError('Could not fetch teapot', err);
+})
+```
